@@ -1,7 +1,7 @@
 # React_native
 
-##Chapter 2
----
+## Chapter 2
+
   TouchableHighlight -> 터치했을때 배경색 바뀜
   TouchableOpacity -> 터치했을때 투명도 조절됨
   TouchableWithoutFeedback -> 어떤 효과도 없이 터치만 됨
