@@ -7,6 +7,13 @@ import { StatusBar } from 'expo-status-bar';
 //1. 함수 컴포넌트와 커스텀 컴포넌트에서만 사용해야 함
 //2. 함수 최상위에서만 사용해야 함 (if문이나 함수 안에서 사용 X 왜? 리랜더링 하면 또 상태가 바뀔 수 있음.그래서 이걸 eslint로 미리 방지가능)
 
+const Operators = {
+  CLEAR: 'C',
+  MINUS: '-',
+  PLUS: '+',
+  EQUAL: '=',
+};
+
 export default function App() {
   // let result = 0;
   //const는 변경 불가능 그래서 let씀
@@ -51,10 +58,45 @@ export default function App() {
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
               />
             </View>
-            <View style={styles.bottom}></View>
+            <View style={styles.bottom}>
+              <Button
+                title="0"
+                onPress={() => {}}
+                buttonStyle={{
+                  width: width * 2,
+                  height: width,
+                  marginBottom: 1,
+                }}
+              />
+              <Button
+                title={Operators.EQUAL}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+                buttonType={ButtonTypes.OPERATOR}
+              />
+            </View>
           </View>
           <View style={styles.row}>
-            <View style={styles.operator}></View>
+            <View style={styles.operator}>
+              <Button
+                title={Operators.CLEAR}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+                buttonType={ButtonTypes.OPERATOR}
+              />
+              <Button
+                title={Operators.MINUS}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+                buttonType={ButtonTypes.OPERATOR}
+              />
+              <Button
+                title={Operators.PLUS}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width * 2, marginBottom: 1 }}
+                buttonType={ButtonTypes.OPERATOR}
+              />
+            </View>
           </View>
         </View>
         {/* <Button
@@ -115,6 +157,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     backgroundColor: 'skyblue',
+    justifyContent: 'space-evenly',
   },
   result: {
     color: '#ffffff',
@@ -124,10 +167,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
   },
 
-  leftPad: {},
+  leftPad: {
+    width: '75%',
+  },
   number: {},
   bottom: {
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   operator: {},
   // txt: {
