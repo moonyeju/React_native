@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Button, { ButtonTypes } from './components/Button';
+//import Button, { ButtonTypes } from './components/Button';
 import { useState } from 'react';
 //hook 사용규칙
 //1. 함수 컴포넌트와 커스텀 컴포넌트에서만 사용해야 함
@@ -13,8 +13,16 @@ export default function App() {
     <>
       <View style={styles.container}>
         {/* <Text style={styles.txt}>calculator app</Text> */}
-        <Text>{result}</Text>
-        <Button
+
+        <View style={styles.resultContainer}>
+          {/* 결과 */}
+          <Text style={styles.result}>{result}</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          {/* 버튼 */}
+          <Text>button</Text>
+        </View>
+        {/* <Button
           title="+"
           onPress={() => {
             setResult(result + 1); //비동기적 이거 두개 적으면 리랜더링 전이라서 결과는 1만 더해짐
@@ -33,7 +41,7 @@ export default function App() {
           }}
           buttonStyle={{ width: 100, height: 100 }}
           buttonType={ButtonTypes.OPERATOR}
-        />
+        /> */}
         {/* <Button
           title="button"
           color={'pink'}
@@ -54,15 +62,35 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  //flex는 네가지 값 설정가능 -> column, column-reverse, row, row-reverse
+  //-> 방향을 바꿀 수 있음.
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
-  txt: {
-    fontSize: 30,
-    fontWeight: '700',
-    color: 'pink',
+  resultContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    backgroundColor: '#000000',
   },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'skyblue',
+  },
+  result: {
+    color: '#ffffff',
+    fontSize: 60,
+    fontWeight: '700',
+    paddingBottom: 30,
+    paddingRight: 30,
+  },
+  // txt: {
+  //   fontSize: 30,
+  //   fontWeight: '700',
+  //   color: 'pink',
+  // },
 });
