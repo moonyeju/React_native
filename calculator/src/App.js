@@ -1,6 +1,8 @@
+//시작할 때 expo start 같은 와이파이 연결되있어야함.
 import { StyleSheet, Text, View } from 'react-native';
 //import Button, { ButtonTypes } from './components/Button';
 import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 //hook 사용규칙
 //1. 함수 컴포넌트와 커스텀 컴포넌트에서만 사용해야 함
 //2. 함수 최상위에서만 사용해야 함 (if문이나 함수 안에서 사용 X 왜? 리랜더링 하면 또 상태가 바뀔 수 있음.그래서 이걸 eslint로 미리 방지가능)
@@ -12,8 +14,11 @@ export default function App() {
   return (
     <>
       <View style={styles.container}>
+        {/* <StatusBar barStyle={'light-content'} backgroundColor={'red'} /> */}
+        {/* -> react-native 자체제공 statusBar */}
         {/* <Text style={styles.txt}>calculator app</Text> */}
-
+        <StatusBar style="light" />
+        {/* -> expo statusBar */}
         <View style={styles.resultContainer}>
           {/* 결과 */}
           <Text style={styles.result}>{result}</Text>
@@ -22,6 +27,14 @@ export default function App() {
           {/* 버튼 */}
           <Text>button</Text>
         </View>
+        <View style={styles.leftPad}>
+          <View style={styles.number}></View>
+          <View style={styles.bottom}></View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.operator}></View>
+        </View>
+
         {/* <Button
           title="+"
           onPress={() => {
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: 'skyblue',
   },
   result: {
@@ -88,6 +102,12 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingRight: 30,
   },
+  leftPad: {},
+  number: {},
+  bottom: {
+    flexDirection: 'row',
+  },
+  operator: {},
   // txt: {
   //   fontSize: 30,
   //   fontWeight: '700',
