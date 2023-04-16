@@ -16,6 +16,12 @@ onLongPress -> 버튼을 길게 눌렀을 때 동작 (0.5sec) -> 여기서 손�
 
 #
 중앙정렬
+
 <img width="444" alt="image" src="https://user-images.githubusercontent.com/97781412/232309454-73706f44-4a21-4332-87fe-af310c4b4d53.png">
 
 #
+justify contents 에서 설정할 수 있는 값6가지
+
+<img width="374" alt="image" src="https://user-images.githubusercontent.com/97781412/232309593-584dc66a-5318-4d66-9d36-9cc383bf0b58.png">
+ 
+ #
