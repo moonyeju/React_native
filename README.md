@@ -36,3 +36,7 @@ justifyContents 에서 설정할 수 있는 값 - 6가지
 
  #
 <img width="465" alt="image" src="https://user-images.githubusercontent.com/97781412/232312576-c6e4a0b2-4be0-47d6-961b-1904808d128e.png">
+
+#
+flexWrap
+<img width="236" alt="image" src="https://user-images.githubusercontent.com/97781412/232316672-4914ab16-6e8d-45b3-96f4-1b11fa16588b.png">
