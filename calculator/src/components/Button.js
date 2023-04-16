@@ -22,6 +22,7 @@ const Button = ({ title, onPress, buttonStyle, buttonType }) => {
       // 기본적으로 아무 효과도 없음
       onPress={onPress}
       style={({ pressed }) => [
+        styles.button,
         // console.log(data); //pressed 객체 전달
         //반드시 리턴 해야함
         {

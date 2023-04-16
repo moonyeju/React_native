@@ -1,6 +1,6 @@
 //시작할 때 expo start 같은 와이파이 연결되있어야함.
-import { StyleSheet, Text, View } from 'react-native';
-//import Button, { ButtonTypes } from './components/Button';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import Button, { ButtonTypes } from './components/Button';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 //hook 사용규칙
@@ -11,6 +11,7 @@ export default function App() {
   // let result = 0;
   //const는 변경 불가능 그래서 let씀
   const [result, setResult] = useState(0);
+  const width = (useWindowDimensions().width - 5) / 4; //버튼사이사이 1씩 띄우기 위해서 5 빼줌
   return (
     <>
       <View style={styles.container}>
@@ -25,16 +26,37 @@ export default function App() {
         </View>
         <View style={styles.buttonContainer}>
           {/* 버튼 */}
-          <Text>button</Text>
-        </View>
-        <View style={styles.leftPad}>
-          <View style={styles.number}></View>
-          <View style={styles.bottom}></View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.operator}></View>
-        </View>
+          {/* <Text>button</Text> */}
 
+          <View style={styles.leftPad}>
+            <View style={styles.number}>
+              <Button
+                title="1"
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+              />
+              <Button
+                title="2"
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+              />
+              <Button
+                title="3"
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+              />
+              <Button
+                title="4"
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+              />
+            </View>
+            <View style={styles.bottom}></View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.operator}></View>
+          </View>
+        </View>
         {/* <Button
           title="+"
           onPress={() => {
@@ -91,7 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
   },
   buttonContainer: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'skyblue',
   },
@@ -102,6 +123,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingRight: 30,
   },
+
   leftPad: {},
   number: {},
   bottom: {
