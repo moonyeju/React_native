@@ -43,3 +43,17 @@ flexWrap
 <img width="236" alt="image" src="https://user-images.githubusercontent.com/97781412/232316672-4914ab16-6e8d-45b3-96f4-1b11fa16588b.png">
 -> wrap도 reverse가능.
 -> 근데? 완전 그냥 뒤집어버림. marginBottom을 해놓으면 marginTop을 한 효과가 남.
+ 
+ #
+ {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+                return (
+                  <Button
+                    key={num} //key지정 안하면 warning발생. 또한 인덱스로 지정하는 것은 권장하기 않음. 정 없을때만!! 근데 우리는 num으로 넣어줄거임.
+                    title={num.toString} //string으로 돌려줘야함. warning발생
+                    onPress={() => {}}
+                    buttonStyle={{ width, height: width, marginTop: 1 }}
+                  />
+                );
+              })}
+              
+              #
