@@ -18,6 +18,84 @@ export default function App() {
   // let result = 0;
   //const는 변경 불가능 그래서 let씀
   const [result, setResult] = useState(0);
+  const [formula, setFormula] = useState([]);
+
+  const calculate = () => {
+    let calculatedNumber = 0;
+    let operator = '';
+    formula.forEach((value) => {
+      if ([Operators.MINUS, Operators.PLUS].includes(value)) {
+        operator = value;
+      } else {
+        if (operator === Operators.PLUS) {
+          calculatedNumber += value;
+        } else if (operator === Operators.MINUS) {
+          calculatedNumber -= value;
+        } else {
+          calculatedNumber = value;
+        }
+      }
+    });
+    setResult(calculatedNumber);
+    setFormula([]);
+  };
+  const onPressNumber = (num) => {
+    const last = formula.at(-1);
+
+    if (isNaN(last)) {
+      setResult(num);
+      setFormula((prev) => [...prev, num]);
+    } else {
+      const newNumber = (last ?? 0) * 10 + num;
+      setResult(newNumber);
+      setFormula((prev) => {
+        prev.pop();
+        return [...prev, newNumber];
+      });
+    }
+  };
+
+  // const onPressNumber = (num) => {
+  //   const last = formula.at(-1); //at사용할때, 음수 적으면 뒤에서 부터 몇번째 값을 가져옴.
+  //   // -> 안드로이드에서는 Array.at()이 작동하지 않는다.
+  //   // -> 코드수정
+  //   // const last = formula[formula.length-1];
+  //   if (isNaN(last)) {
+  //     setResult(num);
+  //     setFormula((prev) => [...prev, num]);
+  //   } else {
+  //     const newNumber = (last ?? 0) * 10 + num;
+  //     setResult(newNumber);
+  //     setFormula((prev) => {
+  //       prev.pop();
+  //       return [...prev, newNumber];
+  //     });
+  //   }
+  // };
+  const onPressOperator = (operator) => {
+    switch (operator) {
+      case Operators.CLEAR:
+        setResult(0);
+        setFormula([]);
+        break;
+      case Operators.EQUAL:
+        calculate();
+        break;
+      default: {
+        //+,-
+        const last = formula.at(-1);
+        if ([Operators.MINUS, Operators.PLUS].includes(last)) {
+          setFormula((prev) => {
+            prev.pop();
+            return [...prev, operator];
+          });
+        } else {
+          setFormula((prev) => [...prev, operator]);
+        }
+        break;
+      }
+    }
+  };
   const width = (useWindowDimensions().width - 5) / 4; //버튼사이사이 1씩 띄우기 위해서 5 빼줌
   return (
     <>
@@ -29,7 +107,9 @@ export default function App() {
         {/* -> expo statusBar */}
         <View style={styles.resultContainer}>
           {/* 결과 */}
-          <Text style={styles.result}>{result}</Text>
+          <Text style={styles.result}>
+            {result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           {/* 버튼 */}
@@ -41,8 +121,10 @@ export default function App() {
                 return (
                   <Button
                     key={num} //key지정 안하면 warning발생. 또한 인덱스로 지정하는 것은 권장하기 않음. 정 없을때만!! 근데 우리는 num으로 넣어줄거임.
-                    title={num.toString} //string으로 돌려줘야함. warning발생
-                    onPress={() => {}}
+                    title={num.toString()} //string으로 돌려줘야함. warning발생
+                    onPress={() => {
+                      onPressNumber(num);
+                    }}
                     buttonStyle={{ width, height: width, marginTop: 1 }}
                   />
                 );
@@ -51,7 +133,9 @@ export default function App() {
             <View style={styles.bottom}>
               <Button
                 title="0"
-                onPress={() => {}}
+                onPress={() => {
+                  onPressNumber(0);
+                }}
                 buttonStyle={{
                   width: width * 2,
                   height: width,
@@ -60,7 +144,9 @@ export default function App() {
               />
               <Button
                 title={Operators.EQUAL}
-                onPress={() => {}}
+                onPress={() => {
+                  onPressOperator(Operators.EQUAL);
+                }}
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
               />
@@ -70,19 +156,25 @@ export default function App() {
             <View style={styles.operator}>
               <Button
                 title={Operators.CLEAR}
-                onPress={() => {}}
+                onPress={() => {
+                  onPressOperator(Operators.CLEAR);
+                }}
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
               />
               <Button
                 title={Operators.MINUS}
-                onPress={() => {}}
+                onPress={() => {
+                  onPressOperator(Operators.MINUS);
+                }}
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
               />
               <Button
                 title={Operators.PLUS}
-                onPress={() => {}}
+                onPress={() => {
+                  onPressOperator(Operators.PLUS);
+                }}
                 buttonStyle={{ width, height: width * 2, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
               />
