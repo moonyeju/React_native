@@ -62,3 +62,15 @@ result.toLocaleString() -> 이 코드가 가장 쉽게 천단위 콤마 찍는 �
 -> 코드 수정
 result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') 
 -> 안드로이드에서도 동작함.
+#
+const last = formula.at(-1);
+-> 안드로이드에서는 Array.at()이 작동하지 않는다.
+-> at사용할때, 음수 적으면 뒤에서 부터 몇번째 값을 가져옴.
+-> 코드수정
+const last = formula[formula.length-1];
+#
+(last ?? 0) -> 이 변수에 든게 undefined일때, 0이 들어가도록!
+# 
+or와 ??의 차이
+
+<img width="120" alt="image" src="https://user-images.githubusercontent.com/97781412/232321227-52fda5a1-1bee-44a9-80fa-0e36272928eb.png">
