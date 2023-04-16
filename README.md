@@ -15,6 +15,8 @@ onPress -> 버튼을 누른 다음 떼고난 다음
 onLongPress -> 버튼을 길게 눌렀을 때 동작 (0.5sec) -> 여기서 손을 떼면 다시 -> onPressOut
 
 #
+flexdirection 네가지 값 설정가능 -> column, column-reverse, row, row-reverse -> 방향을 바꿀 수 있음.
+  
 중앙정렬
 
 <img width="444" alt="image" src="https://user-images.githubusercontent.com/97781412/232309454-73706f44-4a21-4332-87fe-af310c4b4d53.png">
