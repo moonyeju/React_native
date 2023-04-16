@@ -1,5 +1,7 @@
 # React_native
 
+시작할 때 expo start 같은 와이파이 연결되있어야 함.
+
 ## Chapter 2
 
 TouchableHighlight -> 터치했을때 배경색 바뀜  
@@ -33,3 +35,4 @@ justifyContents 에서 설정할 수 있는 값 - 6가지
  alignSelf -> 자기 자신의 정렬 방식
 
  #
+<img width="465" alt="image" src="https://user-images.githubusercontent.com/97781412/232312576-c6e4a0b2-4be0-47d6-961b-1904808d128e.png">
