@@ -39,4 +39,7 @@ justifyContents 에서 설정할 수 있는 값 - 6가지
 
 #
 flexWrap
+
 <img width="236" alt="image" src="https://user-images.githubusercontent.com/97781412/232316672-4914ab16-6e8d-45b3-96f4-1b11fa16588b.png">
+-> wrap도 reverse가능.
+-> 근데? 완전 그냥 뒤집어버림. marginBottom을 해놓으면 marginTop을 한 효과가 남.
