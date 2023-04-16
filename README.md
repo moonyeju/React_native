@@ -15,3 +15,21 @@ onPress -> 버튼을 누른 다음 떼고난 다음
 onLongPress -> 버튼을 길게 눌렀을 때 동작 (0.5sec) -> 여기서 손을 떼면 다시 -> onPressOut
 
 #
+flexdirection 네가지 값 설정가능 -> column, column-reverse, row, row-reverse -> 방향을 바꿀 수 있음.
+  
+중앙정렬
+
+<img width="444" alt="image" src="https://user-images.githubusercontent.com/97781412/232309454-73706f44-4a21-4332-87fe-af310c4b4d53.png">
+
+justifyContents 에서 설정할 수 있는 값 - 6가지
+
+<img width="374" alt="image" src="https://user-images.githubusercontent.com/97781412/232309593-584dc66a-5318-4d66-9d36-9cc383bf0b58.png">
+ 
+ alignItems 에서 설정할 수 있는 값 - 6가지
+ 
+ <img width="436" alt="image" src="https://user-images.githubusercontent.com/97781412/232309753-74b34024-e87b-4f35-94f6-d24bb163f308.png">
+ 
+ alignItems -> 자식 컴포넌트의 정렬 방식
+ alignSelf -> 자기 자신의 정렬 방식
+
+ #
