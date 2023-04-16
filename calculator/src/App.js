@@ -37,26 +37,16 @@ export default function App() {
 
           <View style={styles.leftPad}>
             <View style={styles.number}>
-              <Button
-                title="1"
-                onPress={() => {}}
-                buttonStyle={{ width, height: width, marginBottom: 1 }}
-              />
-              <Button
-                title="2"
-                onPress={() => {}}
-                buttonStyle={{ width, height: width, marginBottom: 1 }}
-              />
-              <Button
-                title="3"
-                onPress={() => {}}
-                buttonStyle={{ width, height: width, marginBottom: 1 }}
-              />
-              <Button
-                title="4"
-                onPress={() => {}}
-                buttonStyle={{ width, height: width, marginBottom: 1 }}
-              />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+                return (
+                  <Button
+                    key={num} //key지정 안하면 warning발생. 또한 인덱스로 지정하는 것은 권장하기 않음. 정 없을때만!! 근데 우리는 num으로 넣어줄거임.
+                    title={num.toString} //string으로 돌려줘야함. warning발생
+                    onPress={() => {}}
+                    buttonStyle={{ width, height: width, marginTop: 1 }}
+                  />
+                );
+              })}
             </View>
             <View style={styles.bottom}>
               <Button
@@ -156,7 +146,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    backgroundColor: 'skyblue',
+    backgroundColor: '#000000',
     justifyContent: 'space-evenly',
   },
   result: {
@@ -170,7 +160,11 @@ const styles = StyleSheet.create({
   leftPad: {
     width: '75%',
   },
-  number: {},
+  number: {
+    flexDirection: 'row',
+    flexWrap: 'wrap-reverse',
+    justifyContent: 'space-evenly',
+  },
   bottom: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
