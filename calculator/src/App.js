@@ -12,13 +12,15 @@ const Operators = {
   MINUS: '-',
   PLUS: '+',
   EQUAL: '=',
+  DELETE: 'Del',
 };
 
 export default function App() {
-  // let result = 0;
   //const는 변경 불가능 그래서 let씀
   const [result, setResult] = useState(0);
   const [formula, setFormula] = useState([]);
+  const [num, setNum] = useState(0);
+  const [now, setNow] = useState(0);
 
   const calculate = () => {
     let calculatedNumber = 0;
@@ -73,6 +75,7 @@ export default function App() {
   //   }
   // };
   const onPressOperator = (operator) => {
+    const last = formula.at(-1);
     switch (operator) {
       case Operators.CLEAR:
         setResult(0);
@@ -81,9 +84,21 @@ export default function App() {
       case Operators.EQUAL:
         calculate();
         break;
+      case Operators.DELETE:
+        if ([Operators.MINUS, Operators.PLUS].includes(last)) {
+          setFormula((prev) => [...prev, operator]);
+        } else {
+          setFormula((prev) => {
+            setNow((prev - num) / 10);
+            setResult(now);
+            prev.pop();
+            return [...prev, now];
+          });
+        }
+
+        break;
       default: {
         //+,-
-        const last = formula.at(-1);
         if ([Operators.MINUS, Operators.PLUS].includes(last)) {
           setFormula((prev) => {
             prev.pop();
@@ -123,6 +138,7 @@ export default function App() {
                     key={num} //key지정 안하면 warning발생. 또한 인덱스로 지정하는 것은 권장하기 않음. 정 없을때만!! 근데 우리는 num으로 넣어줄거임.
                     title={num.toString()} //string으로 돌려줘야함. warning발생
                     onPress={() => {
+                      setNum(num);
                       onPressNumber(num);
                     }}
                     buttonStyle={{ width, height: width, marginTop: 1 }}
@@ -137,15 +153,23 @@ export default function App() {
                   onPressNumber(0);
                 }}
                 buttonStyle={{
-                  width: width * 2,
+                  width: width,
                   height: width,
                   marginBottom: 1,
                 }}
               />
               <Button
-                title={Operators.EQUAL}
+                title={Operators.MINUS}
                 onPress={() => {
-                  onPressOperator(Operators.EQUAL);
+                  onPressOperator(Operators.MINUS);
+                }}
+                buttonStyle={{ width, height: width, marginBottom: 1 }}
+                buttonType={ButtonTypes.OPERATOR}
+              />
+              <Button
+                title={Operators.PLUS}
+                onPress={() => {
+                  onPressOperator(Operators.PLUS);
                 }}
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
@@ -163,17 +187,17 @@ export default function App() {
                 buttonType={ButtonTypes.OPERATOR}
               />
               <Button
-                title={Operators.MINUS}
+                title={Operators.DELETE}
                 onPress={() => {
-                  onPressOperator(Operators.MINUS);
+                  onPressOperator(Operators.DELETE);
                 }}
                 buttonStyle={{ width, height: width, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
               />
               <Button
-                title={Operators.PLUS}
+                title={Operators.EQUAL}
                 onPress={() => {
-                  onPressOperator(Operators.PLUS);
+                  onPressOperator(Operators.EQUAL);
                 }}
                 buttonStyle={{ width, height: width * 2, marginBottom: 1 }}
                 buttonType={ButtonTypes.OPERATOR}
