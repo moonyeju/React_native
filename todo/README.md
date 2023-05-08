@@ -21,3 +21,78 @@ cover : 원본 비율 유지, 이미지가 영역 전체를 채우도록 확대
  stretch : 원본 비율 무시, 이미지가 영역 전체를 채우도록 확대  
  repeat : 영역의 크기가 이미지보다 크면, 바둑판 배열로 이미지 반복  
  center : 이미지 중앙 정렬 (이미지보다 영역이 커도 이미지 크기 조절하지 않음. 이미지보다 영역이 작으면 이미지 크기 조절)
+
+#
+
+placeholder={placeholder ?? title}  
+-> placeholder 지정 안 했을때만 title로  
+placeholder={placeholder || title}  
+-> placeholder가 공백일 때도 title로
+
+#
+
+autoCapitalize={'none'}  
+-> 특정문자를 자동으로 대문자로 변경. none일때, 자동변경 X  
+autoCorrect={false}  
+-> 자동으로 틀린 글자 수정. false일때, 수정 X  
+keyboardType={'email-address'}  
+-> 아래에 이메일용으로 @ 와 .com을 띄워주는 키보드로 변경  
+returnKeyType : 리턴 버튼 (확인 버튼) 변경  
+-> done, go, next, search, send
+textContentType={'none'}  
+-> 사용자에게 필요한 정보를 제공 (이메일 추천 안받기 위해 설정)  
+secureTextEntry : 텍스트를 특수 문자로 변경 (값을 전달할 때, 키만 전달하면 true로)  
+keyboardAppearance={'light'}
+-> 키보드 색상 지정
+
+# KeyboardAvoidingView 컴포넌트
+
+behavior : 아이폰에서 키보드가 생기면서 입력란이 가려지는 문제 해결을 위해 사용  
+-> height : 높이를 조절  
+-> padding : 패딩을 조절  
+-> position : 위치를 조절, contentContainerStyle로 스타일 설정 필요. 그리고 위 두가지와 달리 현재 입력란이 아닌 상단부분이 가려져 안보일 수 있음.
+
+Platform.OS==='ios' ? ** : **  
+Platform.select({ios:** , android:**})  
+-> 이와 같이 일부 환경에서만 동작하도록 설정 가능
+
+# Pressable
+
+onPress={()=> Keyboard.dismiss()}  
+-> 키보드 이외의 다른 영역에 클릭시 키보드 사라짐.
+
+#
+
+onFocus : 포커스를 얻을 때 호출  
+onBlur : 포커스를 잃을 때 호출
+
+# Hook
+
+useEffect(() => {
+console.log(`alway: ${email} ${password}`);
+}); //랜더링 할 때 마다 호출
+useEffect(() => {
+console.log(`mount: ${email} ${password}`);
+}, []); //처음 마운트 될 때만 호출
+useEffect(() => {
+console.log(`email: ${email} ${password}`);
+}, [email]); //특정 값이 변경되었을 때 호출
+//순서가 중요 순서에 따라 호출. 그래서! 순서때문에 값이 바뀔 수 있어 주의필요.
+
+#
+
+         {
+            text: 'default',
+            onPress: () => console.log('default'),
+            style: 'default', //기본
+          },
+          {
+            text: 'cancel',
+            onPress: () => console.log('cancel'),
+            style: 'cancel', //ios에서 두껍게
+          },
+          {
+            text: 'done',
+            onPress: () => console.log('done'),
+            style: 'destructive', //ios에서 빨간색
+          },
