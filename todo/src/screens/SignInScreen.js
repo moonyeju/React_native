@@ -1,14 +1,16 @@
-import { Image, Text, StyleSheet, View, Keyboard, Alert } from 'react-native';
+import { Image, StyleSheet, View, Keyboard, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Input, {
   IconNames,
   KeyboardTypes,
   ReturnKeyTypes,
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import Button from '../components/Button';
 import { signIn } from '../api/auth';
 import PropTypes from 'prop-types';
+import { useUserContext } from '../contexts/UserContext';
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -16,6 +18,8 @@ const SignInScreen = ({ navigation }) => {
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setUser } = useUserContext();
 
   useEffect(() => {
     setDisabled(!email || !password);
@@ -26,9 +30,8 @@ const SignInScreen = ({ navigation }) => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        await signIn(email, password);
-        setIsLoading(false);
-        navigation.push('List');
+        const data = await signIn(email, password);
+        setUser(data);
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
           {
@@ -41,7 +44,7 @@ const SignInScreen = ({ navigation }) => {
   };
   return (
     <SafeInputView>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Image
           source={require('../../assets/main.png')}
           style={styles.image}
@@ -68,19 +71,15 @@ const SignInScreen = ({ navigation }) => {
         />
         <View style={styles.buttonContainer}>
           <Button
-            title={'LOGIN'}
+            title={'SIGNIN'}
             onPress={onSubmit}
             disabled={disabled}
             isLoading={isLoading}
           />
         </View>
-      </View>
+      </SafeAreaView>
     </SafeInputView>
   );
-};
-
-SignInScreen.propTypes = {
-  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({

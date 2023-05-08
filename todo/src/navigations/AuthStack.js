@@ -1,39 +1,21 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ListScreen from '../screens/ListScreen';
 import SignInScreen from '../screens/SignInScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import { PRIMARY, WHITE } from '../colors';
-import HeaderLeftButton from '../components/HeaderLeftButton';
-import HeaderRightButton from '../components/HeaderRightButton';
+import { WHITE } from '../colors';
 
 const Stack = createNativeStackNavigator();
-
+//로그인 전 컴포넌트
 const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
       screenOptions={{
         contentStyle: { backgroundColor: WHITE },
-        headerTitleAlign: 'center',
-        headerTintColor: PRIMARY.DEFAULT,
-        headerTitleStyle: { fontWeight: '700' },
-        title: 'TODO List',
-        headerBackTitleVisible: false,
-        headerLeft: HeaderLeftButton,
       }}
     >
       <Stack.Screen
-        name="List"
-        component={ListScreen}
-        options={{ headerRight: HeaderRightButton }}
-      />
-      <Stack.Screen
-        name="Home"
+        name="SignIn"
         component={SignInScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      {/*nameprops -> 대문자 선호 */}
     </Stack.Navigator>
   );
 };

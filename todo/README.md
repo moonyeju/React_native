@@ -100,12 +100,12 @@ console.log(`email: ${email} ${password}`);
 # native-stack 첫번째 화면 지정 방법
 
 1. Screen 의 순서
-2. Navigator initialRouteName="name" 를 통해 지정   
+2. Navigator initialRouteName="name" 를 통해 지정
 
 # navigation
 
 .push() : 같은 화면이어도, 화면을 계속 쌓으면서 이동  
-.navigate() : 같은 화면이면, 추가로 화면을 쌓지 않음  
+.navigate() : 같은 화면이면, 추가로 화면을 쌓지 않음
 
 # 화면 옵션 설정
 
@@ -119,3 +119,7 @@ headerTitleAlign : 'left' | 'center' -> 헤더 타이틀 정렬 (안드로이드
 headerTintColor : '...' 헤더 색상  
 headerTitleStyle : {...} 헤더 타이틀 스타일  
 headerShown -> 헤더 표시 여부
+
+# useSafeAreaInsets()
+
+기기에 의해 화면이 가려지지 않게 하는 위(top), 아래(bottom), 왼쪽(left),오른쪽(right) padding값을 가진 객체를 반환하는 hook
