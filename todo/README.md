@@ -123,3 +123,12 @@ headerShown -> 헤더 표시 여부
 # useSafeAreaInsets()
 
 기기에 의해 화면이 가려지지 않게 하는 위(top), 아래(bottom), 왼쪽(left),오른쪽(right) padding값을 가진 객체를 반환하는 hook
+
+# 대규모일 때 유용한 기능
+
+ctrl + P  
+-> 파일 이름 검색  
+-> @ + 함수 이름 검색  
+-> # + 함수 이름 검색
+
+# snippets 이용하면 반복되는 코드 쉽고 빠르게!
