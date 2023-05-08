@@ -96,3 +96,13 @@ console.log(`email: ${email} ${password}`);
             onPress: () => console.log('done'),
             style: 'destructive', //ios에서 빨간색
           },
+
+# native-stack 첫번째 화면 지정 방법
+
+1. <Screen/> 의 순서
+2. <Navigator initialRouteName="name">를 통해 지정
+
+# navigation
+
+.push() : 같은 화면이어도, 화면을 계속 쌓으면서 이동
+.navigate() : 같은 화면이면, 추가로 화면을 쌓지 않음
