@@ -99,8 +99,7 @@ console.log(`email: ${email} ${password}`);
 
 # native-stack 첫번째 화면 지정 방법
 
-1.  <Screen/>의 순서   
-2.  <Navigator initialRouteName="name">를 통해 지정   
+<Screen/>의 순서, <Navigator initialRouteName="name">를 통해 지정   
 
 # navigation
 
