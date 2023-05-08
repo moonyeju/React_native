@@ -106,3 +106,6 @@ console.log(`email: ${email} ${password}`);
 
 .push() : 같은 화면이어도, 화면을 계속 쌓으면서 이동
 .navigate() : 같은 화면이면, 추가로 화면을 쌓지 않음
+
+# 화면 옵션 설정
+<img width="272" alt="image" src="https://user-images.githubusercontent.com/97781412/236867563-a334d27f-c87a-405e-a325-f1b6a1d40828.png">
