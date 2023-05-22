@@ -192,3 +192,6 @@ val을 변경함
 # Animated 사용 가능한 컴포넌트
 
 image, text, view, scrollview, flatlist, sectionlist
+
+<img width="358" alt="image" src="https://github.com/moonyeju/React_native/assets/97781412/fe5caa1b-bfe6-4b77-be1c-90dfccb124fc">
+
