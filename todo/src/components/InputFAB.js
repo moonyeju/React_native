@@ -25,6 +25,12 @@ const InputFAB = () => {
   const inputWidth = useRef(new Animated.Value(60)).current;
   //매번 current붙이지 않기 위해 미리 붙임.
   //그리고 value를 사용하기 위해서는 항상 useRef와 함께 사용
+  const buttonRotation = useRef(new Animated.Value(0)).current;
+  const spin = buttonRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '315deg'],
+  });
+
   const open = () => {
     setIsOpened(true);
 
@@ -35,6 +41,11 @@ const InputFAB = () => {
     }).start(() => {
       inputRef.current.focus();
     });
+    Animated.spring(buttonRotation, {
+      toValue: 1,
+      useNativeDriver: false,
+      bounciness: 20,
+    }).start();
   };
   const close = () => {
     setIsOpened(false);
@@ -45,6 +56,11 @@ const InputFAB = () => {
     }).start(() => {
       inputRef.current.blur();
     });
+    Animated.spring(buttonRotation, {
+      toValue: 0,
+      useNativeDriver: false,
+      bounciness: 20,
+    }).start();
   };
 
   const onPressButton = () => {
@@ -90,23 +106,30 @@ const InputFAB = () => {
           onBlur={close}
         />
       </Animated.View>
-      <Pressable
-        onPress={onPressButton}
-        style={({ pressed }) => [
+      <Animated.View
+        style={[
           styles.container,
-          { bottom: keyboardHeight + BOTTOM },
-          pressed && { backgroundColor: PRIMARY.DARK },
+          { bottom: keyboardHeight + 30, transform: [{ rotate: spin }] },
         ]}
       >
-        <MaterialCommunityIcons name="plus" size={24} color={WHITE} />
-      </Pressable>
+        <Pressable
+          onPress={onPressButton}
+          style={({ pressed }) => [
+            styles.container,
+            { right: 0 },
+            pressed && { backgroundColor: PRIMARY.DARK },
+          ]}
+        >
+          <MaterialCommunityIcons name="plus" size={24} color={WHITE} />
+        </Pressable>
+      </Animated.View>
     </>
   );
 };
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: BOTTOM,
+
     right: 10,
     width: 60,
     height: 60,
