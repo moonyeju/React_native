@@ -165,3 +165,30 @@ ListHeaderComponentStyle={{ height: 10 }} -> 스타일
 <!-- ListHeaderComponent={() => <View style={{ height: 10 }}></View>}   --> 이렇게 작성도 가능
 
 # hitslop -> 터치영역 확장
+
+# 정리(clean up) 함수
+
+useEffect{()=>{  
+A()  
+return ()=>{B()}  
+},[val]}
+
+val을 변경함  
+-> 현재 val(변경되기 전의 val)을 갖고 정리함수(B)가 호출  
+-> val이 변경되어 리랜더링되면서 useEffect(A)가 호출
+
+# shadowColor: 그림자 색
+
+# ios
+
+-> shadowOffset : 그림자의 크기  
+-> shadowOpacity : 그림자의 투명도  
+-> shadowRadius : 그림자가 흐려지는 반경
+
+# Android
+
+-> elevation : z 축 방향으로의 높이
+
+# Animated 사용 가능한 컴포넌트
+
+image, text, view, scrollview, flatlist, sectionlist
