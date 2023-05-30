@@ -195,3 +195,12 @@ image, text, view, scrollview, flatlist, sectionlist
 
 <img width="358" alt="image" src="https://github.com/moonyeju/React_native/assets/97781412/fe5caa1b-bfe6-4b77-be1c-90dfccb124fc">
 
+# onScroll
+
+contentOffset.y:스크롤의 높이 (스크롤의 가장 위쪽과 화면 위쪽 사이의 거리)  
+layoutMeasurement.height : 화면의 높이  
+contentSize.height : 목록 전체의 높이
+
+목록 전체의 높이 - 화면의 높이 = 남아있는 화면의 높이  
+(남아있는 화면의 높이 - 스크롤의 높이)가 0이면! 스크롤이 바닥에 있는 것  
+따라서, 목록 전체의 높이 - (화면의 높이 + 스크롤의 높이)=0이면 스크롤이 바닥

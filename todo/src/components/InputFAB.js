@@ -4,25 +4,26 @@ import {
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   TextInput,
-  View,
   useWindowDimensions,
 } from 'react-native';
 import { BLACK, PRIMARY, WHITE } from '../colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const BOTTOM = 30;
+const BUTTON_WIDTH = 60;
+const RIGHT = 10;
 
-const InputFAB = () => {
+const InputFAB = ({ onInsert, isBottom }) => {
   const [text, setText] = useState('');
   const [isOpened, setIsOpened] = useState(false);
   const inputRef = useRef(null);
   const windowWidth = useWindowDimensions().width;
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
 
-  const inputWidth = useRef(new Animated.Value(60)).current;
+  const inputWidth = useRef(new Animated.Value(BUTTON_WIDTH)).current;
   //매번 current붙이지 않기 위해 미리 붙임.
   //그리고 value를 사용하기 위해서는 항상 useRef와 함께 사용
   const buttonRotation = useRef(new Animated.Value(0)).current;
@@ -30,10 +31,17 @@ const InputFAB = () => {
     inputRange: [0, 1],
     outputRange: ['0deg', '315deg'],
   });
+  const buttonRight = useRef(new Animated.Value(RIGHT)).current;
+
+  useEffect(() => {
+    Animated.timing(buttonRight, {
+      toValue: isBottom ? RIGHT - BUTTON_WIDTH : RIGHT,
+      useNativeDriver: false,
+    }).start();
+  }, [isBottom, buttonRight]);
 
   const open = () => {
     setIsOpened(true);
-
     Animated.timing(inputWidth, {
       toValue: windowWidth - 20,
       useNativeDriver: false,
@@ -47,14 +55,16 @@ const InputFAB = () => {
       bounciness: 20,
     }).start();
   };
+
   const close = () => {
     setIsOpened(false);
     Animated.timing(inputWidth, {
-      toValue: 60,
+      toValue: BUTTON_WIDTH,
       useNativeDriver: false,
       duration: 300, //default는 500 즉, 0.5초
     }).start(() => {
       inputRef.current.blur();
+      setText('');
     });
     Animated.spring(buttonRotation, {
       toValue: 0,
@@ -63,21 +73,28 @@ const InputFAB = () => {
     }).start();
   };
 
-  const onPressButton = () => {
-    isOpened ? close() : open();
+  const onPressButton = () => (isOpened ? close() : open());
+  const onPressInsert = () => {
+    const task = text.trim();
+    if (task) {
+      onInsert(task);
+    }
   };
 
   useEffect(() => {
-    const show = Keyboard.addListener('keyboardWillShow', (e) => {
-      setKeyboardHeight(e.endCoordinates.height);
-    });
-    const hide = Keyboard.addListener('keyboardWillHide', () => {
-      setKeyboardHeight(BOTTOM);
-    });
-    return () => {
-      show.remove();
-      hide.remove();
-    };
+    if (Platform.OS === 'ios') {
+      const show = Keyboard.addListener('keyboardWillShow', (e) => {
+        setKeyboardHeight(e.endCoordinates.height + BOTTOM);
+      });
+      const hide = Keyboard.addListener('keyboardWillHide', () => {
+        setKeyboardHeight(BOTTOM);
+      });
+
+      return () => {
+        show.remove();
+        hide.remove();
+      };
+    }
   }, []);
 
   return (
@@ -87,9 +104,10 @@ const InputFAB = () => {
           styles.container,
           styles.shadow,
           {
-            bottom: keyboardHeight + BOTTOM,
+            bottom: keyboardHeight,
             alignItems: 'flex-start',
             width: inputWidth,
+            right: buttonRight,
           },
         ]}
       >
@@ -104,18 +122,25 @@ const InputFAB = () => {
           keyboardAppearance={'light'}
           returnKeyType={'done'}
           onBlur={close}
+          onSubmitEditing={onPressInsert}
         />
       </Animated.View>
+
       <Animated.View
         style={[
           styles.container,
-          { bottom: keyboardHeight + 30, transform: [{ rotate: spin }] },
+          {
+            bottom: keyboardHeight,
+            transform: [{ rotate: spin }],
+            right: buttonRight,
+          },
         ]}
       >
         <Pressable
           onPress={onPressButton}
           style={({ pressed }) => [
             styles.container,
+            // styles.shadow,
             { right: 0 },
             pressed && { backgroundColor: PRIMARY.DARK },
           ]}
@@ -126,14 +151,18 @@ const InputFAB = () => {
     </>
   );
 };
+
+InputFAB.propTypes = {
+  onInsert: PropTypes.func.isRequired,
+  isBottom: PropTypes.bool,
+};
+
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-
-    right: 10,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: BUTTON_WIDTH,
+    height: BUTTON_WIDTH,
+    borderRadius: BUTTON_WIDTH / 2,
     backgroundColor: PRIMARY.DEFAULT,
     justifyContent: 'center',
     alignItems: 'center',
@@ -141,7 +170,7 @@ const styles = StyleSheet.create({
   input: {
     color: WHITE,
     paddingLeft: 20,
-    paddingRight: 70,
+    paddingRight: BUTTON_WIDTH + 10,
   },
   shadow: {
     shadowColor: BLACK,
@@ -155,4 +184,5 @@ const styles = StyleSheet.create({
     }),
   },
 });
+
 export default InputFAB;

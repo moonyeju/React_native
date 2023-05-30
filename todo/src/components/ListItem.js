@@ -4,21 +4,24 @@ import { memo } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BLACK, DANGER, PRIMARY } from '../colors';
 
-const ListItem = memo(({ item }) => {
+const ListItem = memo(({ item, onDelete, onToggle }) => {
   const checkboxProps = {
     name: item.isDone ? 'checkbox-marked' : 'checkbox-blank-outline',
     color: item.isDone ? PRIMARY.DEFAULT : BLACK,
     size: 20,
   };
+
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => {}} hitSlop={10}>
+      <Pressable onPress={() => onToggle(item.id)} hitSlop={10}>
         <MaterialCommunityIcons {...checkboxProps} />
       </Pressable>
+
       <View style={styles.task}>
         <Text>{item.task}</Text>
       </View>
-      <Pressable onPress={() => {}} hitSlop={10}>
+
+      <Pressable onPress={() => onDelete(item.id)} hitSlop={10}>
         <MaterialCommunityIcons
           name="trash-can"
           size={20}
@@ -28,10 +31,15 @@ const ListItem = memo(({ item }) => {
     </View>
   );
 });
+
 ListItem.displayName = 'ListItem';
+
 ListItem.propTypes = {
   item: PropTypes.object.isRequired,
+  onDelete: PropTypes.func,
+  onToggle: PropTypes.func,
 };
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -47,4 +55,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
+
 export default ListItem;
