@@ -4,6 +4,10 @@ import { memo } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BLACK, DANGER, PRIMARY } from '../colors';
 
+let date = new Date();
+let today =
+  date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+
 const ListItem = memo(({ item, onDelete, onToggle }) => {
   const checkboxProps = {
     name: item.isDone ? 'checkbox-marked' : 'checkbox-blank-outline',
@@ -19,6 +23,7 @@ const ListItem = memo(({ item, onDelete, onToggle }) => {
 
       <View style={styles.task}>
         <Text>{item.task}</Text>
+        <Text>{today}</Text>
       </View>
 
       <Pressable onPress={() => onDelete(item.id)} hitSlop={10}>
