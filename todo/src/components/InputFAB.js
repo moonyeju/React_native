@@ -17,9 +17,11 @@ const BUTTON_WIDTH = 60;
 const RIGHT = 10;
 
 const InputFAB = ({ onInsert, isBottom }) => {
-  const [text, setText] = useState('');
+  const [text1, setText1] = useState('');
+  const [text2, setText2] = useState('');
   const [isOpened, setIsOpened] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
   const windowWidth = useWindowDimensions().width;
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
 
@@ -47,7 +49,7 @@ const InputFAB = ({ onInsert, isBottom }) => {
       useNativeDriver: false,
       duration: 300, //default는 500 즉, 0.5초
     }).start(() => {
-      inputRef.current.focus();
+      inputRef1.current.focus();
     });
     Animated.spring(buttonRotation, {
       toValue: 1,
@@ -63,8 +65,10 @@ const InputFAB = ({ onInsert, isBottom }) => {
       useNativeDriver: false,
       duration: 300, //default는 500 즉, 0.5초
     }).start(() => {
-      inputRef.current.blur();
-      setText('');
+      inputRef1.current.blur();
+      setText1('');
+      inputRef2.current.blur();
+      setText2('');
     });
     Animated.spring(buttonRotation, {
       toValue: 0,
@@ -75,9 +79,10 @@ const InputFAB = ({ onInsert, isBottom }) => {
 
   const onPressButton = () => (isOpened ? close() : open());
   const onPressInsert = () => {
-    const task = text.trim();
-    if (task) {
-      onInsert(task);
+    const task1 = text1.trim();
+    const task2 = text2.trim();
+    if (task1 && task2) {
+      onInsert({ task1, task2 });
     }
   };
 
@@ -112,15 +117,33 @@ const InputFAB = ({ onInsert, isBottom }) => {
         ]}
       >
         <TextInput
-          ref={inputRef}
-          value={text}
-          onChangeText={setText}
+          ref={inputRef1}
+          value={text1}
+          onChangeText={setText1}
+          style={styles.input}
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          textContentType={'none'}
+          keyboardAppearance={'light'}
+          returnKeyType={'next'}
+          placeholder="제목을 입력하세요."
+          // onBlur={close}
+          onSubmitEditing={() => {
+            inputRef2.current.focus();
+          }}
+          blurOnSubmit={false}
+        />
+        <TextInput
+          ref={inputRef2}
+          value={text2}
+          onChangeText={setText2}
           style={styles.input}
           autoCapitalize={'none'}
           autoCorrect={false}
           textContentType={'none'}
           keyboardAppearance={'light'}
           returnKeyType={'done'}
+          placeholder="내용을 입력하세요."
           onBlur={close}
           onSubmitEditing={onPressInsert}
         />

@@ -14,7 +14,7 @@ const ListItem = memo(({ item, onDelete, onToggle }) => {
     color: item.isDone ? PRIMARY.DEFAULT : BLACK,
     size: 20,
   };
-
+  console.log(item);
   return (
     <View style={styles.container}>
       <Pressable onPress={() => onToggle(item.id)} hitSlop={10}>
@@ -22,7 +22,8 @@ const ListItem = memo(({ item, onDelete, onToggle }) => {
       </Pressable>
 
       <View style={styles.task}>
-        <Text>{item.task}</Text>
+        <Text>제목 : {item.task1}</Text>
+        <Text>내용 : {item.task2}</Text>
         <Text>{today}</Text>
       </View>
 

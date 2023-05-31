@@ -38,9 +38,9 @@ const ListScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onInsert = (task) => {
+  const onInsert = ({ task1, task2 }) => {
     const id = nanoid();
-    const newTask = { id, task, isDone: false };
+    const newTask = { id, task1: task1, task2: task2, isDone: false };
     save([newTask, ...todos]);
   };
 
