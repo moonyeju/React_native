@@ -40,7 +40,7 @@ const ListScreen = () => {
 
   const onInsert = ({ task1, task2 }) => {
     const id = nanoid();
-    const newTask = { id, task1: task1, task2: task2, isDone: false };
+    const newTask = { id, task1, task2, isDone: false };
     save([newTask, ...todos]);
   };
 
